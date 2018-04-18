@@ -1,0 +1,15 @@
+{
+    "name": "TipSmartContracts",
+    "version": "0.0.1",
+    "private": true,
+    "scripts": {
+        "start": "truffle console",
+        "dev": "truffle migrate --compile-all --reset --network development",
+        "staging": "truffle migrate --compile-all --reset --network rinkeby",
+        "prod": "truffle migrate --compile-all --network live",
+        "test": "truffle test"
+    },
+    "dependencies": {
+        "moment": "^2.22.1"
+    }
+}
