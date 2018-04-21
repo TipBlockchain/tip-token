@@ -1,4 +1,4 @@
-pragma solidity ^0.4.21;
+pragma solidity ^0.4.23;
 
 import "./lib/Ownable.sol";
 import "./lib/ERC20.sol";
@@ -25,7 +25,7 @@ contract TipToken is ERC20, Ownable {
     // ------------------------------------------------------------------------
     // Constructor
     // ------------------------------------------------------------------------
-    function TipToken() public {
+    constructor() public {
         symbol = "TIP";
         name = "Tip Token";
         decimals = 18;

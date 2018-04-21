@@ -1,4 +1,4 @@
-pragma solidity ^0.4.21;
+pragma solidity ^0.4.23;
 
 import "./tokensale/PostDeliveryCrowdsale.sol";
 import "./tokensale/TimedCrowdsale.sol";
@@ -8,7 +8,7 @@ import "./TipToken.sol";
 
 contract TipTokenCrowdsale is CappedCrowdsale, TimedCrowdsale, WhitelistedCrowdsale, PostDeliveryCrowdsale {
 
-    function TipTokenCrowdsale(
+    constructor(
         uint256 _openingTime,
         uint256 _closingTime,
         uint256 _rate,
