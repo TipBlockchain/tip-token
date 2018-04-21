@@ -20,6 +20,7 @@ contract TipTokenCrowdsale is CappedCrowdsale, TimedCrowdsale, WhitelistedCrowds
         CappedCrowdsale(_cap)
         TimedCrowdsale(_openingTime, _closingTime)
         PostDeliveryCrowdsale()
+        WhitelistedCrowdsale()
         {
 
     }

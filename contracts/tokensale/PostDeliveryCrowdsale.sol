@@ -2,13 +2,13 @@ pragma solidity ^0.4.21;
 
 import "./TimedCrowdsale.sol";
 import "../math/SafeMath.sol";
-
+import "../lib/Ownable.sol";
 
 /**
  * @title PostDeliveryCrowdsale
  * @dev Crowdsale that locks tokens from withdrawal until it ends.
  */
-contract PostDeliveryCrowdsale is TimedCrowdsale {
+contract PostDeliveryCrowdsale is TimedCrowdsale, Ownable {
   using SafeMath for uint256;
 
   mapping(address => uint256) public balances;
@@ -16,12 +16,12 @@ contract PostDeliveryCrowdsale is TimedCrowdsale {
   /**
    * @dev Withdraw tokens only after crowdsale ends.
    */
-  function withdrawTokens() public {
+  function withdrawTokens(address _beneficiary) public onlyOwner {
     require(hasClosed());
-    uint256 amount = balances[msg.sender];
+    uint256 amount = balances[_beneficiary];
     require(amount > 0);
-    balances[msg.sender] = 0;
-    _deliverTokens(msg.sender, amount);
+    balances[_beneficiary] = 0;
+    _deliverTokens(_beneficiary, amount);
   }
 
   /**
