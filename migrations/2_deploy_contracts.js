@@ -10,8 +10,8 @@ const presaleEnd        = moment('2018-07-20T23:59:59Z').unix()
 const crowdsaleStart    = moment('2018-07-21T00:00:00Z').unix()
 const crowdsaleEnd      = moment('2018-08-17T23:59:59Z').unix()
 
-const testSaleStart     = moment('2018-04-18T06:05:00Z').unix()
-const testSaleEnd       = moment('2018-04-18T06:11:00Z').unix()
+const testSaleStart     = moment('2018-04-21T08:40:00Z').unix()
+const testSaleEnd       = moment('2018-04-21T08:35:00Z').unix()
 
 const exchangeRate      = 10000
 const hardCap           = 50000 * Math.pow(10, 18)
