@@ -24,6 +24,14 @@ contract PostDeliveryCrowdsale is TimedCrowdsale, Ownable {
     _deliverTokens(_beneficiary, amount);
   }
 
+  function withdrawMyTokens() public onlyOwner {
+    require(hasClosed());
+    address _beneficiary = msg.sender;
+    uint256 amount = balances[_beneficiary];
+    require(amount > 0);
+    balances[_beneficiary] = 0;
+    _deliverTokens(_beneficiary, amount);
+  }
   /**
    * @dev Overrides parent by storing balances instead of issuing tokens right away.
    * @param _beneficiary Token purchaser

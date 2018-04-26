@@ -10,27 +10,53 @@ const presaleEnd        = moment('2018-07-20T23:59:59Z').unix()
 const crowdsaleStart    = moment('2018-07-21T00:00:00Z').unix()
 const crowdsaleEnd      = moment('2018-08-17T23:59:59Z').unix()
 
-const testSaleStart     = moment('2018-04-21T08:40:00Z').unix()
-const testSaleEnd       = moment('2018-04-21T08:35:00Z').unix()
+const testSaleStart     = moment('2018-04-26T21:37:00Z').unix()
+const testSaleEnd       = moment('2018-04-26T21:41:00Z').unix()
 
-const exchangeRate      = 10000
-const hardCap           = 50000 * Math.pow(10, 18)
+const exchangeRate      = 1
+const hardCap           = web3.toWei(50000, "ether")
 
-module.exports = (deployer) => {
-    deployer.deploy(TipToken)
-    .then(() => {
-        // Params (TokenSaleContract, startTime, endTime, rate, wallet, cap, tokenAddress)
+module.exports = (deployer, network, accounts) => {
+    return deploy(deployer, accounts)
+}
+
+async function liveDeploy(deployer, accounts) {
         return deployer.deploy(
             TipTokenCrowdsale,
             testSaleStart,
             testSaleEnd,
             exchangeRate,
-            web3.eth.coinbase,
+            web3.eth.accounts[9],
+            hardCap
+        )
+        .then(async (instance) => {
+           const crowdsale = await TipTokenCrowdsale.deployed()
+           const token = await crowdsale.token.call()
+           console.log("Tip Token deployed at address: ", token);
+        })
+}
+
+async function deploy(deployer, accounts) {
+    let tokenWallet = accounts[0]
+    let ethVault = accounts[9]
+
+    return deployer
+    .then(() => {
+        return deployer.deploy(TipToken)
+    })
+    .then(() => {
+        return deployer.deploy(
+            TipTokenCrowdsale,
+            testSaleStart,
+            testSaleEnd,
+            exchangeRate,
+            ethVault,
+            tokenWallet,
             hardCap,
             TipToken.address
         )
     })
-    .catch((err) => {
-        console.log(err)
+    .catch(err => {
+        console.log("Error deploying contracts: ", err)
     })
 }
