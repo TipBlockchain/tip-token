@@ -10,11 +10,17 @@ const presaleEnd        = moment('2018-07-20T23:59:59Z').unix()
 const crowdsaleStart    = moment('2018-07-21T00:00:00Z').unix()
 const crowdsaleEnd      = moment('2018-08-17T23:59:59Z').unix()
 
-const testSaleStart     = moment('2018-04-26T21:37:00Z').unix()
-const testSaleEnd       = moment('2018-04-26T21:41:00Z').unix()
+const testSaleStart     = moment().add(1, 'minute')
+const testSaleEnd       = moment().add(6, 'minute')
+const testSaleStartUnix = testSaleStart.unix()
+const testSaleEndUnix   = testSaleEnd.unix()
 
 const exchangeRate      = 1
 const hardCap           = web3.toWei(50000, "ether")
+
+const timeFormat        = "MMMM DD YYYY, h:mm:ss a"
+console.log("Sale start time = ", testSaleStart.format(timeFormat));
+console.log("Sale end time = ", testSaleEnd.format(timeFormat));
 
 module.exports = (deployer, network, accounts) => {
     return deploy(deployer, accounts)
@@ -23,8 +29,8 @@ module.exports = (deployer, network, accounts) => {
 async function liveDeploy(deployer, accounts) {
         return deployer.deploy(
             TipTokenCrowdsale,
-            testSaleStart,
-            testSaleEnd,
+            testSaleStartUnix,
+            testSaleEndUnix,
             exchangeRate,
             web3.eth.accounts[9],
             hardCap
@@ -38,7 +44,7 @@ async function liveDeploy(deployer, accounts) {
 
 async function deploy(deployer, accounts) {
     let tokenWallet = accounts[0]
-    let ethVault = accounts[9]
+    let ethVault = accounts[1]
 
     return deployer
     .then(() => {
@@ -47,8 +53,8 @@ async function deploy(deployer, accounts) {
     .then(() => {
         return deployer.deploy(
             TipTokenCrowdsale,
-            testSaleStart,
-            testSaleEnd,
+            testSaleStartUnix,
+            testSaleEndUnix,
             exchangeRate,
             ethVault,
             tokenWallet,
