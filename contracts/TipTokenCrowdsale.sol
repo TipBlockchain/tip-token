@@ -7,6 +7,9 @@ import "./tokensale/CappedCrowdsale.sol";
 import "./tokensale/AllowanceCrowdsale.sol";
 import "./TipToken.sol";
 
+/**
+ * @title TipTokenCrowdsale
+ */
 contract TipTokenCrowdsale is CappedCrowdsale, TimedCrowdsale, WhitelistedCrowdsale, PostDeliveryCrowdsale, AllowanceCrowdsale {
 
 
