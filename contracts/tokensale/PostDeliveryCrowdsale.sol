@@ -12,6 +12,12 @@ contract PostDeliveryCrowdsale is TimedCrowdsale, Ownable {
   using SafeMath for uint256;
 
   mapping(address => uint256) public balances;
+  /**
+   * Event for logging when token sale tokens are withdrawn
+   * @param _address the address to withdraw tokens for
+   * @param _amount the amount withdrawn for this address
+   */
+  event TokensWithdrawn(address indexed _address, uint256 _amount);
 
   /**
    * @dev Withdraw tokens only after crowdsale ends.
@@ -22,6 +28,7 @@ contract PostDeliveryCrowdsale is TimedCrowdsale, Ownable {
     require(amount > 0);
     balances[_beneficiary] = 0;
     _deliverTokens(_beneficiary, amount);
+    emit TokensWithdrawn(_beneficiary, amount);
   }
 
   /**

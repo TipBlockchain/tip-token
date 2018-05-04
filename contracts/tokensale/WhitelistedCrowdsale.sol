@@ -13,6 +13,19 @@ contract WhitelistedCrowdsale is Crowdsale, Ownable {
   mapping(address => bool) public whitelist;
 
   /**
+   * Event for logging adding to whitelist
+   * @param _address the address to add to the whitelist
+   */
+  event AddedToWhitelist(address indexed _address);
+
+  /**
+   * Event for logging removing from whitelist
+   * @param _address the address to remove from the whitelist
+   */
+  event RemovedFromWhitelist(address indexed _address);
+
+
+  /**
    * @dev Reverts if beneficiary is not whitelisted. Can be used when extending this contract.
    */
   modifier isWhitelisted(address _beneficiary) {
@@ -26,6 +39,7 @@ contract WhitelistedCrowdsale is Crowdsale, Ownable {
    */
   function addToWhitelist(address _beneficiary) external onlyOwner {
     whitelist[_beneficiary] = true;
+    emit AddedToWhitelist(_beneficiary);
   }
 
   /**
@@ -44,6 +58,7 @@ contract WhitelistedCrowdsale is Crowdsale, Ownable {
    */
   function removeFromWhitelist(address _beneficiary) external onlyOwner {
     whitelist[_beneficiary] = false;
+    emit RemovedFromWhitelist(_beneficiary);
   }
 
   /**

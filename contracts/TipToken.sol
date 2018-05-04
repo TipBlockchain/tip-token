@@ -58,7 +58,6 @@ contract TipToken is ERC865Token, Ownable {
         revert();
     }
 
-
     /**
      * Owner can transfer out any accidentally sent ERC20 tokens
      */
