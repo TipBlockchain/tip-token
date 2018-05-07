@@ -16,6 +16,10 @@ const testSaleStartUnix = testSaleStart.unix()
 const testSaleEndUnix   = testSaleEnd.unix()
 
 const exchangeRate      = 1
+const rate              = 10000
+const presaleRate       = rate * 1.5
+const seedRoundRate     = rate * 3.0
+
 const hardCap           = web3.toWei(50000, "ether")
 
 const timeFormat        = "MMMM DD YYYY, h:mm:ss a"

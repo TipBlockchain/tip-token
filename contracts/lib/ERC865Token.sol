@@ -50,9 +50,9 @@ contract ERC865Token is ERC865, StandardToken {
         balances[msg.sender] = balances[msg.sender].add(_fee);
         signatures[_signature] = true;
 
-        Transfer(from, _to, _value);
-        Transfer(from, msg.sender, _fee);
-        TransferPreSigned(from, _to, msg.sender, _value, _fee);
+        emit Transfer(from, _to, _value);
+        emit Transfer(from, msg.sender, _fee);
+        emit TransferPreSigned(from, _to, msg.sender, _value, _fee);
         return true;
     }
 
@@ -86,9 +86,9 @@ contract ERC865Token is ERC865, StandardToken {
         balances[msg.sender] = balances[msg.sender].add(_fee);
         signatures[_signature] = true;
 
-        Approval(from, _spender, _value);
-        Transfer(from, msg.sender, _fee);
-        ApprovalPreSigned(from, _spender, msg.sender, _value, _fee);
+        emit Approval(from, _spender, _value);
+        emit Transfer(from, msg.sender, _fee);
+        emit ApprovalPreSigned(from, _spender, msg.sender, _value, _fee);
         return true;
     }
 
@@ -122,9 +122,9 @@ contract ERC865Token is ERC865, StandardToken {
         balances[msg.sender] = balances[msg.sender].add(_fee);
         signatures[_signature] = true;
 
-        Approval(from, _spender, allowed[from][_spender]);
-        Transfer(from, msg.sender, _fee);
-        ApprovalPreSigned(from, _spender, msg.sender, allowed[from][_spender], _fee);
+        emit Approval(from, _spender, allowed[from][_spender]);
+        emit Transfer(from, msg.sender, _fee);
+        emit ApprovalPreSigned(from, _spender, msg.sender, allowed[from][_spender], _fee);
         return true;
     }
 
@@ -163,9 +163,9 @@ contract ERC865Token is ERC865, StandardToken {
         balances[msg.sender] = balances[msg.sender].add(_fee);
         signatures[_signature] = true;
 
-        Approval(from, _spender, _subtractedValue);
-        Transfer(from, msg.sender, _fee);
-        ApprovalPreSigned(from, _spender, msg.sender, allowed[from][_spender], _fee);
+        emit Approval(from, _spender, _subtractedValue);
+        emit Transfer(from, msg.sender, _fee);
+        emit ApprovalPreSigned(from, _spender, msg.sender, allowed[from][_spender], _fee);
         return true;
     }
 
@@ -205,8 +205,8 @@ contract ERC865Token is ERC865, StandardToken {
         balances[msg.sender] = balances[msg.sender].add(_fee);
         signatures[_signature] = true;
 
-        Transfer(_from, _to, _value);
-        Transfer(spender, msg.sender, _fee);
+        emit Transfer(_from, _to, _value);
+        emit Transfer(spender, msg.sender, _fee);
         return true;
     }
 
