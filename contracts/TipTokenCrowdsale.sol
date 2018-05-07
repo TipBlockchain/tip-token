@@ -5,40 +5,41 @@ import "./tokensale/TimedCrowdsale.sol";
 import "./tokensale/WhitelistedCrowdsale.sol";
 import "./tokensale/CappedCrowdsale.sol";
 import "./tokensale/AllowanceCrowdsale.sol";
+import "./tokensale/MultiRoundCrowdsale.sol";
+import "./lib/Pausable.sol";
 import "./TipToken.sol";
 
 /**
  * @title TipTokenCrowdsale
  */
-contract TipTokenCrowdsale is CappedCrowdsale, TimedCrowdsale, WhitelistedCrowdsale, PostDeliveryCrowdsale, AllowanceCrowdsale {
+contract TipTokenCrowdsale is MultiRoundCrowdsale, CappedCrowdsale, TimedCrowdsale, WhitelistedCrowdsale, PostDeliveryCrowdsale, AllowanceCrowdsale {
 
 
     /**
-     * @param _openingTime the start time of the token sale
-     * @param _closingTime the end time of the token sale
-     * @param _rate Number of token units a buyer gets per wei
      * @param _vault Address where collected funds will be forwarded to
      * @param _tokenWallet Address holding the tokens, which has approved allowance to the crowdsale
      * @param _cap the maximum number of tokens to be collected in the sale
      * @param _token Address of the token being sold
      */
     constructor(
-        uint256 _openingTime,
-        uint256 _closingTime,
-        uint256 _rate,
-        address _vault,
+        ERC20 _token,
         address _tokenWallet,
+        address _vault,
         uint256 _cap,
-        ERC20 _token
+        uint256 _start, uint256 _end, uint256 _baseRate
         ) public
-        Crowdsale(_rate, _vault, _token)
+        Crowdsale(_baseRate, _vault, _token)
         CappedCrowdsale(_cap)
-        TimedCrowdsale(_openingTime, _closingTime)
+        TimedCrowdsale(_start, _end)
         PostDeliveryCrowdsale()
         WhitelistedCrowdsale()
         AllowanceCrowdsale(_tokenWallet)
+        MultiRoundCrowdsale()
         {
 
     }
-
+/*
+    function _preValidatePurchase(address _beneficiary, uint256 _weiAmount) internal whenNotPaused() {
+        super._preValidatePurchase(_beneficiary, _weiAmount);
+    } */
 }
