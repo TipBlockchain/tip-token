@@ -12,7 +12,7 @@ import "./TipToken.sol";
 /**
  * @title TipTokenCrowdsale
  */
-contract TipTokenCrowdsale is CappedCrowdsale, TimedCrowdsale, WhitelistedCrowdsale, PostDeliveryCrowdsale, AllowanceCrowdsale, MultiRoundCrowdsale, Pausable {
+contract TipTokenCrowdsale is CappedCrowdsale, TimedCrowdsale, WhitelistedCrowdsale, AllowanceCrowdsale, PostDeliveryCrowdsale, MultiRoundCrowdsale, Pausable {
 
 
     /**

@@ -17,11 +17,6 @@ const crowdsaleWeek3End     = moment('2018-08-10T23:59:59Z').unix()
 const crowdsaleWeek4Start   = moment('2018-08-11T00:00:00Z').unix()
 const crowdsaleWeek4End     = moment('2018-08-17T23:59:59Z').unix()
 
-const testSaleStart         = moment().add(1, 'minute')
-const testSaleEnd           = moment().add(6, 'minute')
-const testSaleStartUnix     = testSaleStart.unix()
-const testSaleEndUnix       = testSaleEnd.unix()
-
 const baseRate              = 10000
 const seedRoundRate         = baseRate * 3.0
 const presaleRate           = baseRate * 1.5
@@ -31,10 +26,6 @@ const crowdsaleWeek3Rate    = baseRate * 1.1
 const crowdsaleWeek4Rate    = baseRate
 
 const hardCap               = web3.toWei(50000, "ether")
-
-const timeFormat            = "MMMM DD YYYY, h:mm:ss a"
-console.log("Sale start time = ", testSaleStart.format(timeFormat));
-console.log("Sale end time = ", testSaleEnd.format(timeFormat));
 
 module.exports = (deployer, network, accounts) => {
     return deploy(deployer, accounts)
