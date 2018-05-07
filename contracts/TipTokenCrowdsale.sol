@@ -41,5 +41,8 @@ contract TipTokenCrowdsale is CappedCrowdsale, TimedCrowdsale, WhitelistedCrowds
 
     function _preValidatePurchase(address _beneficiary, uint256 _weiAmount) internal whenNotPaused() {
         super._preValidatePurchase(_beneficiary, _weiAmount);
+
+        SaleRound memory currentRound = getCurrentRound();
+        require(weiRaised < currentRound.roundCap);
     }
 }

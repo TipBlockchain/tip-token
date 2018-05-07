@@ -25,6 +25,9 @@ const crowdsaleWeek2Rate    = baseRate * 1.2
 const crowdsaleWeek3Rate    = baseRate * 1.1
 const crowdsaleWeek4Rate    = baseRate
 
+// Caps for each round. Caps are cumulative
+const seedRoundCap          = web3.toWei(1250, "ether")
+const presaleCap            = web3.toWei(20000, "ether")
 const hardCap               = web3.toWei(50000, "ether")
 
 module.exports = (deployer, network, accounts) => {
@@ -35,12 +38,12 @@ async function deploy(deployer, accounts) {
     let tokenWallet     = accounts[0]
     let ethVault        = accounts[1]
 
-    let seedRound       = [seedRoundStart, seedRoundEnd, seedRoundRate]
-    let presale         = [presaleStart, presaleEnd,presaleRate]
-    let crowdsaleWeek1  = [crowdsaleWeek1Start, crowdsaleWeek1End, crowdsaleWeek1Rate]
-    let crowdsaleWeek2  = [crowdsaleWeek2Start, crowdsaleWeek2End, crowdsaleWeek2Rate]
-    let crowdsaleWeek3  = [crowdsaleWeek3Start, crowdsaleWeek3End, crowdsaleWeek3Rate]
-    let crowdsaleWeek4  = [crowdsaleWeek4Start, crowdsaleWeek4End, crowdsaleWeek4Rate]
+    let seedRound       = [seedRoundStart, seedRoundEnd, seedRoundRate, seedRoundCap]
+    let presale         = [presaleStart, presaleEnd, presaleRate, presaleCap]
+    let crowdsaleWeek1  = [crowdsaleWeek1Start, crowdsaleWeek1End, crowdsaleWeek1Rate, hardCap]
+    let crowdsaleWeek2  = [crowdsaleWeek2Start, crowdsaleWeek2End, crowdsaleWeek2Rate, hardCap]
+    let crowdsaleWeek3  = [crowdsaleWeek3Start, crowdsaleWeek3End, crowdsaleWeek3Rate, hardCap]
+    let crowdsaleWeek4  = [crowdsaleWeek4Start, crowdsaleWeek4End, crowdsaleWeek4Rate, hardCap]
 
     return deployer
     .then(() => {
