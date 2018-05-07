@@ -12,7 +12,7 @@ import "./TipToken.sol";
 /**
  * @title TipTokenCrowdsale
  */
-contract TipTokenCrowdsale is MultiRoundCrowdsale, CappedCrowdsale, TimedCrowdsale, WhitelistedCrowdsale, PostDeliveryCrowdsale, AllowanceCrowdsale {
+contract TipTokenCrowdsale is CappedCrowdsale, TimedCrowdsale, WhitelistedCrowdsale, PostDeliveryCrowdsale, AllowanceCrowdsale, MultiRoundCrowdsale, Pausable {
 
 
     /**
@@ -38,8 +38,8 @@ contract TipTokenCrowdsale is MultiRoundCrowdsale, CappedCrowdsale, TimedCrowdsa
         {
 
     }
-/*
+
     function _preValidatePurchase(address _beneficiary, uint256 _weiAmount) internal whenNotPaused() {
         super._preValidatePurchase(_beneficiary, _weiAmount);
-    } */
+    }
 }
