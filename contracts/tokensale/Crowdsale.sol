@@ -32,6 +32,9 @@ contract Crowdsale {
   // Amount of wei raised
   uint256 public weiRaised;
 
+  // Amount of token sold in wei
+  uint256 public tokenWeiSold;
+
   /**
    * Event for token purchase logging
    * @param purchaser who paid for the tokens
@@ -81,6 +84,7 @@ contract Crowdsale {
 
     // update state
     weiRaised = weiRaised.add(weiAmount);
+    tokenWeiSold = tokenWeiSold.add(tokens);
 
     _processPurchase(_beneficiary, tokens);
     emit TokenPurchase(msg.sender, _beneficiary, weiAmount,tokens);

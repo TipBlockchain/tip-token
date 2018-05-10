@@ -44,5 +44,6 @@ contract TipTokenCrowdsale is CappedCrowdsale, TimedCrowdsale, WhitelistedCrowds
 
         SaleRound memory currentRound = getCurrentRound();
         require(weiRaised.add(_weiAmount) <= currentRound.roundCap);
+        require(balances[_beneficiary].add(_weiAmount) >= currentRound.minPurchase);
     }
 }
