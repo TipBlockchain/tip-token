@@ -27,8 +27,16 @@ const crowdsaleWeek4Rate    = baseRate
 
 // Caps for each round. Caps are cumulative
 const seedRoundCap          = web3.toWei(1250, "ether")
-const presaleCap            = web3.toWei(20000, "ether")
-const hardCap               = web3.toWei(50000, "ether")
+const presaleCap            = web3.toWei(11250, "ether")
+const crowdsaleWeek1Cap     = web3.toWei(21250, "ether")
+const crowdsaleWeek2Cap     = web3.toWei(31000, "ether")
+const crowdsaleWeek3Cap     = web3.toWei(40000, "ether")
+const crowdsaleWeek4Cap     = web3.toWei(47500, "ether")
+const hardCap               = web3.toWei(47500, "ether")
+
+const seedRoundMin          = web3.toWei(24.9, "ether")
+const presaleMin            = web3.toWei(0.9, "ether")
+const crowdsaleMin          = web3.toWei(0.001, "ether")
 
 module.exports = (deployer, network, accounts) => {
     return deploy(deployer, accounts)
@@ -38,12 +46,12 @@ async function deploy(deployer, accounts) {
     let tokenWallet     = accounts[0]
     let ethVault        = accounts[1]
 
-    let seedRound       = [seedRoundStart, seedRoundEnd, seedRoundRate, seedRoundCap]
-    let presale         = [presaleStart, presaleEnd, presaleRate, presaleCap]
-    let crowdsaleWeek1  = [crowdsaleWeek1Start, crowdsaleWeek1End, crowdsaleWeek1Rate, hardCap]
-    let crowdsaleWeek2  = [crowdsaleWeek2Start, crowdsaleWeek2End, crowdsaleWeek2Rate, hardCap]
-    let crowdsaleWeek3  = [crowdsaleWeek3Start, crowdsaleWeek3End, crowdsaleWeek3Rate, hardCap]
-    let crowdsaleWeek4  = [crowdsaleWeek4Start, crowdsaleWeek4End, crowdsaleWeek4Rate, hardCap]
+    let seedRound       = [seedRoundStart, seedRoundEnd, seedRoundRate, seedRoundCap, seedRoundMin]
+    let presale         = [presaleStart, presaleEnd, presaleRate, presaleCap, presaleMin]
+    let crowdsaleWeek1  = [crowdsaleWeek1Start, crowdsaleWeek1End, crowdsaleWeek1Rate, crowdsaleWeek1Cap, crowdsaleMin]
+    let crowdsaleWeek2  = [crowdsaleWeek2Start, crowdsaleWeek2End, crowdsaleWeek2Rate, crowdsaleWeek2Cap, crowdsaleMin]
+    let crowdsaleWeek3  = [crowdsaleWeek3Start, crowdsaleWeek3End, crowdsaleWeek3Rate, crowdsaleWeek3Cap, crowdsaleMin]
+    let crowdsaleWeek4  = [crowdsaleWeek4Start, crowdsaleWeek4End, crowdsaleWeek4Rate, crowdsaleWeek4Cap, crowdsaleMin]
 
     return deployer
     .then(() => {
