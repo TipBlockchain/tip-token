@@ -69,7 +69,7 @@ contract TipToken is ERC865Token, Ownable {
      * Sets the alias for the msg.sender's address.
      * @param alias the alias to attach to an address
      */
-    function setAlias(string alias) {
+    function setAlias(string alias) public {
         aliases[msg.sender] = alias;
         addresses[alias] = msg.sender;
     }
