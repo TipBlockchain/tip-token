@@ -3,19 +3,19 @@ var TipTokenCrowdsale = artifacts.require("./TipTokenCrowdsale")
 
 var moment = require('moment')
 
-const seedRoundStart        = moment('2018-05-20T06:45:00Z').unix()
-const seedRoundEnd          = moment('2018-05-20T06:59:59Z').unix()
-const presaleStart          = moment('2018-05-20T07:00:00Z').unix()
-const presaleEnd            = moment('2018-05-20T07:59:59Z').unix()
+const seedRoundStart        = moment('2018-05-21T02:45:00Z').unix()
+const seedRoundEnd          = moment('2018-05-21T02:48:59Z').unix()
+const presaleStart          = moment('2018-05-21T02:50:00Z').unix()
+const presaleEnd            = moment('2018-05-21T02:52:59Z').unix()
 
-const crowdsaleWeek1Start   = moment('2018-05-20T08:00:00Z').unix()
-const crowdsaleWeek1End     = moment('2018-05-20T08:59:59Z').unix()
-const crowdsaleWeek2Start   = moment('2018-05-20T09:00:00Z').unix()
-const crowdsaleWeek2End     = moment('2018-05-20T09:59:59Z').unix()
-const crowdsaleWeek3Start   = moment('2018-05-20T10:00:00Z').unix()
-const crowdsaleWeek3End     = moment('2018-05-20T10:29:59Z').unix()
-const crowdsaleWeek4Start   = moment('2018-05-20T10:30:00Z').unix()
-const crowdsaleWeek4End     = moment('2018-05-20T15:15:00Z').unix()
+const crowdsaleWeek1Start   = moment('2018-05-21T02:53:00Z').unix()
+const crowdsaleWeek1End     = moment('2018-05-21T02:54:59Z').unix()
+const crowdsaleWeek2Start   = moment('2018-05-21T02:55:00Z').unix()
+const crowdsaleWeek2End     = moment('2018-05-21T02:55:59Z').unix()
+const crowdsaleWeek3Start   = moment('2018-05-21T02:56:00Z').unix()
+const crowdsaleWeek3End     = moment('2018-05-21T02:56:59Z').unix()
+const crowdsaleWeek4Start   = moment('2018-05-21T02:57:00Z').unix()
+const crowdsaleWeek4End     = moment('2018-05-21T02:59:59Z').unix()
 
 const baseRate              = 10000
 const seedRoundRate         = baseRate * 3.0
@@ -26,13 +26,13 @@ const crowdsaleWeek3Rate    = baseRate * 1.1
 const crowdsaleWeek4Rate    = baseRate
 
 // Caps for each round. Caps are cumulative
-const seedRoundCap          = web3.toWei(1250, "ether")
-const presaleCap            = web3.toWei(9750, "ether")
-const crowdsaleWeek1Cap     = web3.toWei(18500, "ether")
-const crowdsaleWeek2Cap     = web3.toWei(27500, "ether")
-const crowdsaleWeek3Cap     = web3.toWei(37500, "ether")
-const crowdsaleWeek4Cap     = web3.toWei(47500, "ether")
-const hardCap               = web3.toWei(47500, "ether")
+const seedRoundCap          = web3.toWei(150, "ether")
+const presaleCap            = web3.toWei(250, "ether")
+const crowdsaleWeek1Cap     = web3.toWei(350, "ether")
+const crowdsaleWeek2Cap     = web3.toWei(450, "ether")
+const crowdsaleWeek3Cap     = web3.toWei(550, "ether")
+const crowdsaleWeek4Cap     = web3.toWei(650, "ether")
+const hardCap               = web3.toWei(750, "ether")
 
 const seedRoundMin          = web3.toWei(24.9, "ether")
 const presaleMin            = web3.toWei(0.9, "ether")
@@ -44,7 +44,8 @@ module.exports = (deployer, network, accounts) => {
 
 async function deploy(deployer, accounts) {
     let tokenWallet     = accounts[0]
-    let ethVault        = accounts[1]
+    let ethVault        = accounts[9]
+    let admin           = accounts[1]
 
     let seedRound       = [seedRoundStart, seedRoundEnd, seedRoundRate, seedRoundCap, seedRoundMin]
     let presale         = [presaleStart, presaleEnd, presaleRate, presaleCap, presaleMin]
@@ -70,6 +71,7 @@ async function deploy(deployer, accounts) {
     })
     .then(crowdsaleInstance => {
         crowdsaleInstance.setTokenSaleRounds(seedRound, presale, crowdsaleWeek1, crowdsaleWeek2, crowdsaleWeek3, crowdsaleWeek4)
+        crowdsaleInstance.addAdmin(admin)
     })
     .catch(err => {
         console.log("Error deploying contracts: ", err)
