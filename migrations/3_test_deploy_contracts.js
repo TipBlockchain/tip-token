@@ -3,19 +3,19 @@ var TipTokenCrowdsale = artifacts.require("./TipTokenCrowdsale")
 
 var moment = require('moment')
 
-const seedRoundStart        = moment('2018-05-15T06:45:00Z').unix()
-const seedRoundEnd          = moment('2018-05-15T06:59:59Z').unix()
-const presaleStart          = moment('2018-05-15T07:00:00Z').unix()
-const presaleEnd            = moment('2018-05-15T07:59:59Z').unix()
+const seedRoundStart        = moment('2018-05-20T06:45:00Z').unix()
+const seedRoundEnd          = moment('2018-05-20T06:59:59Z').unix()
+const presaleStart          = moment('2018-05-20T07:00:00Z').unix()
+const presaleEnd            = moment('2018-05-20T07:59:59Z').unix()
 
-const crowdsaleWeek1Start   = moment('2018-05-15T08:00:00Z').unix()
-const crowdsaleWeek1End     = moment('2018-05-15T08:59:59Z').unix()
-const crowdsaleWeek2Start   = moment('2018-05-15T09:00:00Z').unix()
-const crowdsaleWeek2End     = moment('2018-05-15T09:59:59Z').unix()
-const crowdsaleWeek3Start   = moment('2018-05-15T10:00:00Z').unix()
-const crowdsaleWeek3End     = moment('2018-05-15T10:29:59Z').unix()
-const crowdsaleWeek4Start   = moment('2018-05-15T10:30:00Z').unix()
-const crowdsaleWeek4End     = moment('2018-05-15T15:15:00Z').unix()
+const crowdsaleWeek1Start   = moment('2018-05-20T08:00:00Z').unix()
+const crowdsaleWeek1End     = moment('2018-05-20T08:59:59Z').unix()
+const crowdsaleWeek2Start   = moment('2018-05-20T09:00:00Z').unix()
+const crowdsaleWeek2End     = moment('2018-05-20T09:59:59Z').unix()
+const crowdsaleWeek3Start   = moment('2018-05-20T10:00:00Z').unix()
+const crowdsaleWeek3End     = moment('2018-05-20T10:29:59Z').unix()
+const crowdsaleWeek4Start   = moment('2018-05-20T10:30:00Z').unix()
+const crowdsaleWeek4End     = moment('2018-05-20T15:15:00Z').unix()
 
 const baseRate              = 10000
 const seedRoundRate         = baseRate * 3.0
@@ -39,7 +39,7 @@ const presaleMin            = web3.toWei(0.9, "ether")
 const crowdsaleMin          = web3.toWei(0.001, "ether")
 
 module.exports = (deployer, network, accounts) => {
-    // return deploy(deployer, accounts)
+    return deploy(deployer, accounts)
 }
 
 async function deploy(deployer, accounts) {

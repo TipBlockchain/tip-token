@@ -39,8 +39,8 @@ const presaleMin            = web3.toWei(0.9, "ether")
 const crowdsaleMin          = web3.toWei(0.001, "ether")
 
 module.exports = (deployer, network, accounts) => {
-    return deploy(deployer, accounts)
-    // return console.log('not deployed')
+    // return deploy(deployer, accounts)
+    return console.log('not deployed')
 }
 
 async function deploy(deployer, accounts) {
