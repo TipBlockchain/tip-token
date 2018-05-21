@@ -87,7 +87,7 @@ contract Crowdsale {
     tokenWeiSold = tokenWeiSold.add(tokens);
 
     _processPurchase(_beneficiary, tokens);
-    emit TokenPurchase(msg.sender, _beneficiary, weiAmount,tokens);
+    emit TokenPurchase(msg.sender, _beneficiary, weiAmount, tokens);
 
     _updatePurchasingState(_beneficiary, weiAmount);
 

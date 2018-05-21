@@ -1,18 +1,17 @@
 pragma solidity ^0.4.23;
 
+import "./tokensale/MultiRoundCrowdsale.sol";
 import "./tokensale/PostDeliveryCrowdsale.sol";
-import "./tokensale/TimedCrowdsale.sol";
 import "./tokensale/WhitelistedCrowdsale.sol";
 import "./tokensale/CappedCrowdsale.sol";
 import "./tokensale/AllowanceCrowdsale.sol";
-import "./tokensale/MultiRoundCrowdsale.sol";
 import "./lib/Pausable.sol";
 import "./TipToken.sol";
 
 /**
  * @title TipTokenCrowdsale
  */
-contract TipTokenCrowdsale is CappedCrowdsale, TimedCrowdsale, WhitelistedCrowdsale, AllowanceCrowdsale, PostDeliveryCrowdsale, MultiRoundCrowdsale, Pausable {
+contract TipTokenCrowdsale is MultiRoundCrowdsale, CappedCrowdsale, WhitelistedCrowdsale, AllowanceCrowdsale, PostDeliveryCrowdsale, Pausable {
 
 
     /**
@@ -36,7 +35,6 @@ contract TipTokenCrowdsale is CappedCrowdsale, TimedCrowdsale, WhitelistedCrowds
         AllowanceCrowdsale(_tokenWallet)
         MultiRoundCrowdsale()
         {
-
     }
 
     function _preValidatePurchase(address _beneficiary, uint256 _weiAmount) internal whenNotPaused() {
@@ -45,5 +43,13 @@ contract TipTokenCrowdsale is CappedCrowdsale, TimedCrowdsale, WhitelistedCrowds
         SaleRound memory currentRound = getCurrentRound();
         require(weiRaised.add(_weiAmount) <= currentRound.roundCap);
         require(balances[_beneficiary].add(_weiAmount) >= currentRound.minPurchase);
+    }
+
+    function _getTokenAmount(uint256 _weiAmount) internal view returns (uint256) {
+        return MultiRoundCrowdsale._getTokenAmount(_weiAmount);
+    }
+
+    function _deliverTokens(address _beneficiary, uint256 _tokenAmount) internal {
+        AllowanceCrowdsale._deliverTokens(_beneficiary, _tokenAmount);
     }
 }

@@ -100,7 +100,7 @@ contract MultiRoundCrowdsale is  Crowdsale, Ownable {
         return currentRound.rate;
     }
 
-    function getTokenAmount(uint256 _weiAmount) internal view returns (uint256) {
+    function _getTokenAmount(uint256 _weiAmount) internal view returns (uint256) {
         require(_weiAmount != 0);
         uint256 currentRate = getCurrentRate();
         require(currentRate != 0);
