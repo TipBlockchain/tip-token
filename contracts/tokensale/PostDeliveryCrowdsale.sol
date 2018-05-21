@@ -40,4 +40,8 @@ contract PostDeliveryCrowdsale is TimedCrowdsale, Administratable {
     balances[_beneficiary] = balances[_beneficiary].add(_tokenAmount);
   }
 
+  function getBalance(address _beneficiary) public returns (uint256) {
+      return balances[_beneficiary];
+  }
+
 }

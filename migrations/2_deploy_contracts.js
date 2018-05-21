@@ -70,6 +70,7 @@ async function deploy(deployer, accounts) {
         return TipTokenCrowdsale.deployed()
     })
     .then(crowdsaleInstance => {
+        crowdsaleInstance.addAdmin(tokenWallet)
         crowdsaleInstance.setTokenSaleRounds(seedRound, presale, crowdsaleWeek1, crowdsaleWeek2, crowdsaleWeek3, crowdsaleWeek4)
     })
     .catch(err => {

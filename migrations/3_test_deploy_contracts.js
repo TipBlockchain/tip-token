@@ -55,13 +55,14 @@ async function deploy(deployer, accounts) {
     let crowdsaleWeek4  = [crowdsaleWeek4Start, crowdsaleWeek4End, crowdsaleWeek4Rate, crowdsaleWeek4Cap, crowdsaleMin]
 
     return deployer
-    .then(() => {
-        return deployer.deploy(TipToken)
-    })
+    // .then(() => {
+    //     return deployer.deploy(TipToken)
+    // })
     .then(() => {
         return deployer.deploy(
             TipTokenCrowdsale,
-            TipToken.address,
+            "0xf25186b5081ff5ce73482ad761db0eb0d25abfbf", // Previously deployed Tip Token address
+            // TipToken.address,
             tokenWallet, ethVault, hardCap,
             seedRoundStart, crowdsaleWeek4End, baseRate
         )
@@ -70,6 +71,7 @@ async function deploy(deployer, accounts) {
         return TipTokenCrowdsale.deployed()
     })
     .then(crowdsaleInstance => {
+        crowdsaleInstance.addAdmin(tokenWallet)
         crowdsaleInstance.setTokenSaleRounds(seedRound, presale, crowdsaleWeek1, crowdsaleWeek2, crowdsaleWeek3, crowdsaleWeek4)
         crowdsaleInstance.addAdmin(admin)
     })
