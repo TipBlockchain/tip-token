@@ -26,13 +26,13 @@ const crowdsaleWeek3Rate    = baseRate * 1.1
 const crowdsaleWeek4Rate    = baseRate
 
 // Caps for each round. Caps are cumulative
-const seedRoundCap          = web3.toWei(1250, "ether")
-const presaleCap            = web3.toWei(9750, "ether")
-const crowdsaleWeek1Cap     = web3.toWei(18500, "ether")
-const crowdsaleWeek2Cap     = web3.toWei(27500, "ether")
-const crowdsaleWeek3Cap     = web3.toWei(37500, "ether")
-const crowdsaleWeek4Cap     = web3.toWei(47500, "ether")
-const hardCap               = web3.toWei(47500, "ether")
+const seedRoundCap          = web3.toWei(1333, "ether")
+const presaleCap            = web3.toWei(11333, "ether")
+const crowdsaleWeek1Cap     = web3.toWei(19025, "ether")
+const crowdsaleWeek2Cap     = web3.toWei(27359, "ether")
+const crowdsaleWeek3Cap     = web3.toWei(36450, "ether")
+const crowdsaleWeek4Cap     = web3.toWei(46450, "ether")
+const hardCap               = web3.toWei(46450, "ether")
 
 const seedRoundMin          = web3.toWei(24.9, "ether")
 const presaleMin            = web3.toWei(0.9, "ether")
