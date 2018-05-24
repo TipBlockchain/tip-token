@@ -14,10 +14,11 @@ import "./StandardToken.sol";
 contract ERC865Token is ERC865, StandardToken {
 
     /* Nonces of transfers performed */
-    mapping(bytes => bool) signatures;
+    mapping(bytes => bool) nonces;
 
     event TransferPreSigned(address indexed from, address indexed to, address indexed delegate, uint256 amount, uint256 fee);
     event ApprovalPreSigned(address indexed from, address indexed to, address indexed delegate, uint256 amount, uint256 fee);
+    event SignatureRevoked(bytes signature, address indexed from);
 
     /**
      * @notice Submit a presigned transfer
@@ -38,17 +39,18 @@ contract ERC865Token is ERC865, StandardToken {
         returns (bool)
     {
         require(_to != address(0));
-        require(signatures[_signature] == false);
+        require(!nonces[_signature]);
 
         bytes32 hashedTx = transferPreSignedHashing(address(this), _to, _value, _fee, _nonce);
 
         address from = recover(hashedTx, _signature);
         require(from != address(0));
 
+        nonces[_signature] = true;
+
         balances[from] = balances[from].sub(_value).sub(_fee);
         balances[_to] = balances[_to].add(_value);
         balances[msg.sender] = balances[msg.sender].add(_fee);
-        signatures[_signature] = true;
 
         emit Transfer(from, _to, _value);
         emit Transfer(from, msg.sender, _fee);
@@ -75,16 +77,17 @@ contract ERC865Token is ERC865, StandardToken {
         returns (bool)
     {
         require(_spender != address(0));
-        require(signatures[_signature] == false);
+        require(!nonces[_signature]);
 
         bytes32 hashedTx = approvePreSignedHashing(address(this), _spender, _value, _fee, _nonce);
         address from = recover(hashedTx, _signature);
         require(from != address(0));
 
+        nonces[_signature] = true;
+
         allowed[from][_spender] = _value;
         balances[from] = balances[from].sub(_fee);
         balances[msg.sender] = balances[msg.sender].add(_fee);
-        signatures[_signature] = true;
 
         emit Approval(from, _spender, _value);
         emit Transfer(from, msg.sender, _fee);
@@ -111,16 +114,17 @@ contract ERC865Token is ERC865, StandardToken {
         returns (bool)
     {
         require(_spender != address(0));
-        require(signatures[_signature] == false);
+        require(!nonces[_signature]);
 
         bytes32 hashedTx = increaseApprovalPreSignedHashing(address(this), _spender, _addedValue, _fee, _nonce);
         address from = recover(hashedTx, _signature);
         require(from != address(0));
 
+        nonces[_signature] = true;
+
         allowed[from][_spender] = allowed[from][_spender].add(_addedValue);
         balances[from] = balances[from].sub(_fee);
         balances[msg.sender] = balances[msg.sender].add(_fee);
-        signatures[_signature] = true;
 
         emit Approval(from, _spender, allowed[from][_spender]);
         emit Transfer(from, msg.sender, _fee);
@@ -147,11 +151,13 @@ contract ERC865Token is ERC865, StandardToken {
         returns (bool)
     {
         require(_spender != address(0));
-        require(signatures[_signature] == false);
+        require(!nonces[_signature]);
 
         bytes32 hashedTx = decreaseApprovalPreSignedHashing(address(this), _spender, _subtractedValue, _fee, _nonce);
         address from = recover(hashedTx, _signature);
         require(from != address(0));
+
+        nonces[_signature] = true;
 
         uint oldValue = allowed[from][_spender];
         if (_subtractedValue > oldValue) {
@@ -161,7 +167,6 @@ contract ERC865Token is ERC865, StandardToken {
         }
         balances[from] = balances[from].sub(_fee);
         balances[msg.sender] = balances[msg.sender].add(_fee);
-        signatures[_signature] = true;
 
         emit Approval(from, _spender, _subtractedValue);
         emit Transfer(from, msg.sender, _fee);
@@ -190,12 +195,14 @@ contract ERC865Token is ERC865, StandardToken {
         returns (bool)
     {
         require(_to != address(0));
-        require(signatures[_signature] == false);
+        require(!nonces[_signature]);
 
         bytes32 hashedTx = transferFromPreSignedHashing(address(this), _from, _to, _value, _fee, _nonce);
 
         address spender = recover(hashedTx, _signature);
         require(spender != address(0));
+
+        nonces[_signature] = true;
 
         balances[_from] = balances[_from].sub(_value);
         balances[_to] = balances[_to].add(_value);
@@ -203,10 +210,23 @@ contract ERC865Token is ERC865, StandardToken {
 
         balances[spender] = balances[spender].sub(_fee);
         balances[msg.sender] = balances[msg.sender].add(_fee);
-        signatures[_signature] = true;
+        nonces[_signature] = true;
 
         emit Transfer(_from, _to, _value);
         emit Transfer(spender, msg.sender, _fee);
+        return true;
+    }
+
+    /**
+     * Revote previously approved signature
+     * @param  _signature bytes The signature to revoke
+     * @return bool  Returns true if revocation was successful
+     */
+    function revokeSignature(bytes _signature) public returns (bool) {
+        require(!nonces[_signature]);
+        nonces[_signature] = true;
+
+        emit SignatureRevoked(_signature, msg.sender);
         return true;
     }
 

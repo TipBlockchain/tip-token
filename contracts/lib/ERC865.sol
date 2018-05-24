@@ -62,4 +62,9 @@ contract ERC865 is ERC20 {
     )
         public
         returns (bool);
+
+    function revokeSignature(bytes _signature)
+    public
+    returns (bool);
+
 }

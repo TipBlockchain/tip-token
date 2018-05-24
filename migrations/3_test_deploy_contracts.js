@@ -3,19 +3,19 @@ var TipTokenCrowdsale = artifacts.require("./TipTokenCrowdsale")
 
 var moment = require('moment')
 
-const seedRoundStart        = moment('2018-05-21T05:20:00Z').unix()
-const seedRoundEnd          = moment('2018-05-21T05:23:59Z').unix()
-const presaleStart          = moment('2018-05-21T05:25:00Z').unix()
-const presaleEnd            = moment('2018-05-21T05:25:59Z').unix()
+const seedRoundStart        = moment('2018-05-24T04:20:00Z').unix()
+const seedRoundEnd          = moment('2018-05-24T04:24:59Z').unix()
+const presaleStart          = moment('2018-05-24T04:25:00Z').unix()
+const presaleEnd            = moment('2018-05-24T04:25:59Z').unix()
 
-const crowdsaleWeek1Start   = moment('2018-05-21T05:26:00Z').unix()
-const crowdsaleWeek1End     = moment('2018-05-21T05:26:59Z').unix()
-const crowdsaleWeek2Start   = moment('2018-05-21T05:27:00Z').unix()
-const crowdsaleWeek2End     = moment('2018-05-21T05:27:59Z').unix()
-const crowdsaleWeek3Start   = moment('2018-05-21T05:28:00Z').unix()
-const crowdsaleWeek3End     = moment('2018-05-21T05:28:59Z').unix()
-const crowdsaleWeek4Start   = moment('2018-05-21T05:29:00Z').unix()
-const crowdsaleWeek4End     = moment('2018-05-21T05:29:59Z').unix()
+const crowdsaleWeek1Start   = moment('2018-05-24T04:26:00Z').unix()
+const crowdsaleWeek1End     = moment('2018-05-24T04:26:59Z').unix()
+const crowdsaleWeek2Start   = moment('2018-05-24T04:27:00Z').unix()
+const crowdsaleWeek2End     = moment('2018-05-24T04:27:59Z').unix()
+const crowdsaleWeek3Start   = moment('2018-05-24T04:28:00Z').unix()
+const crowdsaleWeek3End     = moment('2018-05-24T04:28:59Z').unix()
+const crowdsaleWeek4Start   = moment('2018-05-24T04:29:00Z').unix()
+const crowdsaleWeek4End     = moment('2018-05-24T04:29:59Z').unix()
 
 const baseRate              = 10000
 const seedRoundRate         = baseRate * 3.0
@@ -55,13 +55,14 @@ async function deploy(deployer, accounts) {
     let crowdsaleWeek4  = [crowdsaleWeek4Start, crowdsaleWeek4End, crowdsaleWeek4Rate, crowdsaleWeek4Cap, crowdsaleMin]
 
     return deployer
-    .then(() => {
-        return deployer.deploy(TipToken)
-    })
+    // .then(() => {
+    //     return deployer.deploy(TipToken)
+    // })
     .then(() => {
         return deployer.deploy(
             TipTokenCrowdsale,
-            TipToken.address,
+            // TipToken.address,
+            '0xf25186b5081ff5ce73482ad761db0eb0d25abfbf',
             tokenWallet, ethVault, hardCap,
             seedRoundStart, crowdsaleWeek4End, baseRate
         )
