@@ -13,6 +13,12 @@ import "./TipToken.sol";
  */
 contract TipTokenCrowdsale is MultiRoundCrowdsale, CappedCrowdsale, WhitelistedCrowdsale, AllowanceCrowdsale, PostDeliveryCrowdsale, Pausable {
 
+    /**
+     * Contract name
+     * String name - the name of the contract
+     */
+    string public constant name = "Tip Token Crowdsale";
+
 
     /**
      * @param _vault Address where collected funds will be forwarded to

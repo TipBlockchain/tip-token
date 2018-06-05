@@ -23,7 +23,7 @@ coverage
 
 # nyc test coverage
 .nyc_output
-
+.node*
 # Grunt intermediate storage (http://gruntjs.com/creating-plugins#storing-task-files)
 .grunt
 
@@ -39,6 +39,7 @@ build/Release
 
 # Truffle build directory
 build
+build-*
 
 # Dependency directories
 node_modules/
